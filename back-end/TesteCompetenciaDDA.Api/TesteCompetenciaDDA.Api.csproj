@@ -19,4 +19,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TesteCompetenciaDDA.IoC\TesteCompetenciaDDA.IoC.csproj" />
+  </ItemGroup>
+
 </Project>
