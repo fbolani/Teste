@@ -6,6 +6,6 @@ namespace TesteCompetenciaDDA.Domain.Entities
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public ICollection<LancamentoFinanceiro> Lancamentos { get; set; }
+        public virtual ICollection<LancamentoFinanceiro> Lancamentos { get; set; }
     }
 }

@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TesteCompetenciaDDA.Domain\TesteCompetenciaDDA.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

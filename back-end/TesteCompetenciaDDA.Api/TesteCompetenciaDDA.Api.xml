@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TesteCompetenciaDDA.Api</name>
+    </assembly>
+    <members>
+        <member name="M:TesteCompetenciaDDA.Api.Controllers.LancamentoController.ListarTodosLancamentosFinanceiros">
+            <summary>
+            Lista todos os lançamentos
+            </summary>
+            <response code="200">Lista de lançamentos</response>
+            <response code="500">Erro ao obter o lançamentos</response>
+        </member>
+        <member name="M:TesteCompetenciaDDA.Api.Controllers.LancamentoController.ObterPorID(System.Int32)">
+            <summary>
+            Obtem lançamento por ID
+            </summary>
+            <response code="200">Obtem lançamento</response>
+            <response code="404">Lançamento não encontrado</response>
+            <response code="500">Erro ao obter o lançamento</response>
+        </member>
+        <member name="M:TesteCompetenciaDDA.Api.Controllers.LancamentoController.Post(TesteCompetenciaDDA.Domain.Entities.LancamentoFinanceiro)">
+            <summary>
+            Cadastrar lançamento
+            </summary>
+            <response code="200">Lançamento cadastrado com sucesso</response>
+            <response code="500">Erro ao cadastrar o lançamento</response>
+        </member>
+        <member name="M:TesteCompetenciaDDA.Api.Controllers.LancamentoController.Put(System.Int32,TesteCompetenciaDDA.Domain.Entities.LancamentoFinanceiro)">
+            <summary>
+            Atualizar lançamento
+            </summary>
+            <response code="200">Lançamento atualizado com sucesso</response>
+            <response code="404">Lançamento não encontrado para ser atualizado</response>
+            <response code="500">Erro ao atualizar o lançamento</response>
+        </member>
+        <member name="M:TesteCompetenciaDDA.Api.Controllers.LancamentoController.Delete(System.Int32)">
+            <summary>
+            Excluir lançamento
+            </summary>
+            <response code="200">Lançamento excluído com sucesso</response>
+            <response code="404">Lançamento não encontrado para ser excluído</response>
+            <response code="500">Erro ao excluir o lançamento</response>
+        </member>
+    </members>
+</doc>

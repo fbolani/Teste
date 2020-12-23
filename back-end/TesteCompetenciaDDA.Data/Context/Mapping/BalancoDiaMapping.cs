@@ -11,7 +11,7 @@ namespace TesteCompetenciaDDA.Data.Context.Mapping
         private static void MapTable(EntityTypeBuilder<BalancoDia> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).HasColumnType("int").ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.Id).HasColumnType("int");
             builder.Property(x => x.Data).HasColumnType("datetime").IsRequired();
             builder.Property(x => x.ValorCredito).HasColumnType("money").IsRequired();
             builder.Property(x => x.ValorDebito).HasColumnType("money").IsRequired();

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TesteCompetenciaDDA.App.App;
+using TesteCompetenciaDDA.App.Interfaces;
 
 namespace TesteCompetenciaDDA.IoC.DI
 {
@@ -6,7 +8,7 @@ namespace TesteCompetenciaDDA.IoC.DI
     {
         public static void Configure(IServiceCollection services)
         {
-            // services.AddScoped<IParametrosRepository, ParametrosRepository>();           
+            services.AddScoped<ILancamentoApp, LancamentoApp>();           
         }
     }
 }

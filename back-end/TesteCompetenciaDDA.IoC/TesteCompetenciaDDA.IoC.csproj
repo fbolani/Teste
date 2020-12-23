@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TesteCompetenciaDDA.App\TesteCompetenciaDDA.App.csproj" />
     <ProjectReference Include="..\TesteCompetenciaDDA.Data\TesteCompetenciaDDA.Data.csproj" />
+    <ProjectReference Include="..\TesteCompetenciaDDA.Domain\TesteCompetenciaDDA.Domain.csproj" />
   </ItemGroup>
 
 </Project>
