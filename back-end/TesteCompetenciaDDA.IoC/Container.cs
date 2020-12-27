@@ -11,7 +11,6 @@ namespace TesteCompetenciaDDA.IoC
             DI.Database.Configure(services, configuration);
             DI.Repository.Configure(services);
             DI.Service.Configure(services);
-            DI.App.Configure(services);
         }
     }
 }

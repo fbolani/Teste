@@ -8,7 +8,8 @@ namespace TesteCompetenciaDDA.IoC.DI
     {
         public static void Configure(IServiceCollection services)
         {
-            services.AddScoped<ILancamentoFinanceiroRepository, LancamentoFinanceiroRepository>();           
+            services.AddScoped<ILancamentoFinanceiroRepository, LancamentoFinanceiroRepository>(); 
+            services.AddScoped<IBalancoDiaRepository, BalancoDiaRepository>(); 
         }
     }
 }

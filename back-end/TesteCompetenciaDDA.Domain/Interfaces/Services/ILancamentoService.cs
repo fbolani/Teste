@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TesteCompetenciaDDA.Domain.Entities;
 
@@ -9,7 +10,8 @@ namespace TesteCompetenciaDDA.Domain.Interfaces.Services
         Task<List<LancamentoFinanceiro>> ListarTodosLancamentosFinanceiros();
         Task<LancamentoFinanceiro> ObterPorID(int Id);
         Task AdicionarLancamentoFinanceiro(LancamentoFinanceiro signature);
-        Task<bool> AtualizarLancamentoFinanceiro(LancamentoFinanceiro signature);
-        Task<bool> ExcluirLancamentoFinanceiro(int id);
+        Task AtualizarLancamentoFinanceiro(LancamentoFinanceiro signature);
+        Task ExcluirLancamentoFinanceiro(int id);
+        Task<List<LancamentoFinanceiro>> ListarLancamentosDia(DateTime dateTime);
     }
 }

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TesteCompetenciaDDA.Domain\TesteCompetenciaDDA.Domain.csproj" />
     <ProjectReference Include="..\TesteCompetenciaDDA.IoC\TesteCompetenciaDDA.IoC.csproj" />
   </ItemGroup>
 

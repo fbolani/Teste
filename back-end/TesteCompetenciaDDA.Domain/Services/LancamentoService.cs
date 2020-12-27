@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TesteCompetenciaDDA.Domain.Entities;
 using TesteCompetenciaDDA.Domain.Interfaces.Repository;
@@ -9,52 +10,71 @@ namespace TesteCompetenciaDDA.Domain.Services
     public class LancamentoService : ILancamentoService
     {
         private readonly ILancamentoFinanceiroRepository LancamentoFinanceiroRepository;
-        public LancamentoService(ILancamentoFinanceiroRepository lancamentoFinanceiroRepository)
+        private readonly INotificacaoService NotificacaoService;
+        public LancamentoService(ILancamentoFinanceiroRepository lancamentoFinanceiroRepository,
+                                 INotificacaoService notificacaoService)
         {
             this.LancamentoFinanceiroRepository = lancamentoFinanceiroRepository;
+            this.NotificacaoService = notificacaoService;
         }
 
         public async Task<List<LancamentoFinanceiro>> ListarTodosLancamentosFinanceiros()
         {
-            return await this.LancamentoFinanceiroRepository.ListarTodosLancamentosFinanceiros();
+            return await this.LancamentoFinanceiroRepository.ToListAsync();
         }
 
         public async Task<LancamentoFinanceiro> ObterPorID(int Id)
         {
-            return await this.LancamentoFinanceiroRepository.ObterLancamentoFinanceiroPorID(Id);
+            return await this.LancamentoFinanceiroRepository.FindAsync(Id);
         }
 
         public async Task AdicionarLancamentoFinanceiro(LancamentoFinanceiro signature)
         {
-            await this.LancamentoFinanceiroRepository.AdicionarLancamentosFinanceiros(signature);
+            if (signature.IsValid(out string msg))
+                await this.LancamentoFinanceiroRepository.AddAsync(signature);
+            else
+                NotificacaoService.AddNotificacao(msg);
         }
 
-        public async Task<bool> AtualizarLancamentoFinanceiro(LancamentoFinanceiro signature)
+        public async Task AtualizarLancamentoFinanceiro(LancamentoFinanceiro signature)
         {
             LancamentoFinanceiro lancamento = await this.ObterPorID((int)signature.Id);
-            if (lancamento == null)
-                return false;
-            if (lancamento.Status)
-                return false;
-
-            lancamento.DataHora = signature.DataHora;
-            lancamento.Tipo = signature.Tipo;
-            lancamento.Valor = signature.Valor;
-            lancamento.Status = signature.Status;
-
-            await this.LancamentoFinanceiroRepository.Atualizar(lancamento);
-            return true;
+            if (PodeModificar(lancamento))
+            {
+                lancamento.SetValues(signature);
+                if (lancamento.IsValid(out string msg))
+                    await this.LancamentoFinanceiroRepository.Update(lancamento);
+                else
+                    NotificacaoService.AddNotificacao(msg);
+            }
         }
 
-        public async Task<bool> ExcluirLancamentoFinanceiro(int id)
+        public async Task ExcluirLancamentoFinanceiro(int id)
         {
             LancamentoFinanceiro lancamento = await this.ObterPorID(id);
-            if (lancamento == null)
-                return false;
-            if (lancamento.Status)
-                return false;
+            if (PodeModificar(lancamento))
+            {
+                await this.LancamentoFinanceiroRepository.Remove(lancamento);
+            }
+        }
 
-            await this.LancamentoFinanceiroRepository.Deletar(lancamento);
+        public async Task<List<LancamentoFinanceiro>> ListarLancamentosDia(DateTime dateTime)
+        {
+            return await this.LancamentoFinanceiroRepository.ToListAsync(w => w.DataHora.Date == dateTime.Date);
+        }
+
+        private bool PodeModificar(LancamentoFinanceiro lancamento)
+        {
+            if (lancamento == null)
+            {
+                this.NotificacaoService.AddNotificacao("Lançamento não encontrado");
+                return false;
+            }
+            else if (lancamento.Status)
+            {
+                this.NotificacaoService.AddNotificacao("Este lançamento não pode ser modificado/excluido, pois já foi conciliado");
+                return false;
+            }
             return true;
         }
     }

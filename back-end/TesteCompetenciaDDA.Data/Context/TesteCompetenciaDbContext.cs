@@ -10,7 +10,6 @@ namespace TesteCompetenciaDDA.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);            
-            TipoLancamentoFinanceiroMapping.Map(modelBuilder);
             LancamentoFinanceiroMapping.Map(modelBuilder);
             BalancoDiaMapping.Map(modelBuilder);
         }

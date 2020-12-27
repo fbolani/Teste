@@ -14,7 +14,7 @@ namespace TesteCompetenciaDDA.Data.Context.Mapping
             builder.Property(x => x.Id).HasColumnType("int").ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.DataHora).HasColumnType("datetime").IsRequired();
             builder.Property(x => x.Valor).HasColumnType("money").IsRequired();
-            builder.HasOne(c => c.Tipo).WithMany(e => e.Lancamentos).IsRequired();
+            builder.Property(c => c.Tipo).HasColumnType("int").IsRequired();
             builder.Property(x => x.Status).HasColumnType("bit").IsRequired();
 
             builder.ToTable("LancamentoFinanceiro");
