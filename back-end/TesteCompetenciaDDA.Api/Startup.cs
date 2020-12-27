@@ -4,6 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
+using TesteCompetenciaDDA.IoC;
 
 namespace TesteCompetenciaDDA.Api
 {
@@ -18,11 +22,26 @@ namespace TesteCompetenciaDDA.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            Container.Configure(services, Configuration);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader()
+                        );
+            });
+
             services.AddSwaggerGen(c =>
             {
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Documentação da Api", Version = "V1" });
             });
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
