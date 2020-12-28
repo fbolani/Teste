@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppComponent } from 'src/app/app.component';
 import { ListarComponent } from 'src/app/pages/lancamento/listar/listar.component';
@@ -20,6 +20,7 @@ import { RelatorioMensalComponent } from 'src/app/pages/relatorio-mensal/relator
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
   ],
   providers: [],

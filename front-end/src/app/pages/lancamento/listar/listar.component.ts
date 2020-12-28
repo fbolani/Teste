@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Lancamento } from 'src/app/models/lancamento.model';
 import { LancamentoService } from 'src/app/services/lancamento.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar',
@@ -8,8 +9,9 @@ import { LancamentoService } from 'src/app/services/lancamento.service';
   styles: ['./listar.component.css']
 })
 export class ListarComponent implements OnInit {
-  lancamentos: Lancamento[];
-  constructor(private _lancamentoService: LancamentoService) { }
+  lancamentos: Lancamento[] = [];
+  constructor(private _lancamentoService: LancamentoService,
+              private router: Router) { }
 
   ngOnInit() {
     this.onLoad();
@@ -35,9 +37,9 @@ export class ListarComponent implements OnInit {
       () => { });
   }
 
-  formatarDataHora(data: string) {
+  formatarDataHora(data: Date) {
     if (data)
-      return new Date(data).toLocaleString().substr(0, 10);
+      return data.toLocaleString().substr(0, 10);
     else
       return "";
   }
@@ -62,7 +64,7 @@ export class ListarComponent implements OnInit {
     }
   }
 
-  onRemoveClick(id) {
+  onRemoveClick(id: number) {
     if (confirm("Confirma a exclusão do item ID: " + id + " ?")) {
       this._lancamentoService.delete(id).subscribe(
         () => { alert("Exclusão realizada com sucesso"); },
@@ -82,6 +84,10 @@ export class ListarComponent implements OnInit {
         },
         () => { this.onLoad(); });
     }
+  }
+
+  onEditClick(id: number){
+    this.router.navigate(['/lancamento', id]);
   }
 
 }

@@ -17,6 +17,10 @@ export class LancamentoService {
     return this._httpClient.get<Lancamento[]>(`${this.url}`);
   }
 
+  getById(id: number): Observable<Lancamento> {
+    return this._httpClient.get<Lancamento>(`${this.url}/${id}`);
+  }
+
   getByDate(data: any): Observable<Lancamento[]> {
     return this._httpClient.get<Lancamento[]>(`${this.url}/dia/${data}`);
   }

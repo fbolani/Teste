@@ -7,7 +7,7 @@ import { BalancoService } from 'src/app/services/balanco.service';
   templateUrl: './relatorio-mensal.component.html'
 })
 export class RelatorioMensalComponent implements OnInit {
-  balancos: Balanco[];
+  balancos: Balanco[] = [];
   constructor(private _balancoService: BalancoService) { }
 
   ngOnInit() {
@@ -35,9 +35,9 @@ export class RelatorioMensalComponent implements OnInit {
 
   }
 
-  formatarDataHora(data: string) {
+  formatarDataHora(data: Date) {
     if (data)
-      return new Date(data).toLocaleString().substr(0, 10);
+      return data.toLocaleString().substr(0, 10);
     else
       return "";
   }

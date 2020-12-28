@@ -8,10 +8,10 @@ import { BalancoService } from 'src/app/services/balanco.service';
   templateUrl: './conciliar.component.html'
 })
 export class ConciliarComponent implements OnInit {
-  lancamentos: Lancamento[];
+  lancamentos: Lancamento[] = [];
   constructor(private _lancamentoService: LancamentoService,
     private _balancoService: BalancoService) { }
-  data: String;
+  data: String = "";
 
   ngOnInit() {
     var data = new Date();
@@ -26,9 +26,9 @@ export class ConciliarComponent implements OnInit {
     );
   }
 
-  formatarDataHora(data: string) {
+  formatarDataHora(data: Date) {
     if (data)
-      return new Date(data).toLocaleString().substr(0, 10);
+      return data.toLocaleString().substr(0, 10);
     else
       return "";
   }

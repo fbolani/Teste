@@ -10,19 +10,19 @@
         <div class="form-row">
           <div class="form-group col-sm-3">
             <label for="id">Id</label>
-            <input type="text" class="form-control" id="id" readonly>
+            <input type="text" class="form-control" id="id" [(ngModel)]="id" readonly >
           </div>
           <div class="form-group col-sm-3">
             <label for="dataHora">Data/Hora</label>
-            <input type="text" class="form-control" id="dataHora" placeholder="Data/Hora">
+            <input type="text" class="form-control" id="dataHora" placeholder="Data/Hora" [(ngModel)]="data">
           </div>
           <div class="form-group  col-sm-3">
             <label for="valor">Valor</label>
-            <input type="text" class="form-control" id="valor" placeholder="Valor">
+            <input type="text" class="form-control" id="valor" placeholder="Valor" [(ngModel)]="valor">
           </div>
           <div class="form-group col-sm-3">
             <label for="tipo">Tipo</label>
-            <select class="form-control" id="tipo">
+            <select class="form-control" id="tipo" [(ngModel)]="tipo">
               <option value="1">Débito</option>
               <option value="2">Crédito</option>
             </select>
