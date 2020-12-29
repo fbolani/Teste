@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Lancamento } from '../models/lancamento.model';
 
@@ -10,7 +10,12 @@ import { Lancamento } from '../models/lancamento.model';
 
 export class LancamentoService {
   private url = `${environment.api}/Lancamento`;
-
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type':  'application/json'
+    })
+  };
   constructor(private _httpClient: HttpClient) { }
 
   get(): Observable<Lancamento[]> {
@@ -26,11 +31,11 @@ export class LancamentoService {
   }
 
   post(model: Lancamento) {
-    return this._httpClient.post(`${this.url}`, JSON.stringify(model));
+    return this._httpClient.post(`${this.url}`, JSON.stringify(model), this.httpOptions);
   }
 
   put(id: number, model: Lancamento) {
-    return this._httpClient.put(`${this.url}/${id}`, JSON.stringify(model));
+    return this._httpClient.put(`${this.url}/${id}`, JSON.stringify(model), this.httpOptions);
   }
 
   delete(id: number) {

@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar',
-  templateUrl: './listar.component.html',
-  styles: ['./listar.component.css']
+  templateUrl: './listar.component.html'
 })
 export class ListarComponent implements OnInit {
   lancamentos: Lancamento[] = [];
@@ -37,9 +36,9 @@ export class ListarComponent implements OnInit {
       () => { });
   }
 
-  formatarDataHora(data: Date) {
+  formatarDataHora(data: string) {
     if (data)
-      return data.toLocaleString().substr(0, 10);
+      return new Date(data).toLocaleString().substr(0, 20).replace("T", " ");
     else
       return "";
   }
@@ -90,4 +89,7 @@ export class ListarComponent implements OnInit {
     this.router.navigate(['/lancamento', id]);
   }
 
+  onAdicionar(){
+    this.router.navigate(['/lancamento', 'cadastro']);
+  }  
 }

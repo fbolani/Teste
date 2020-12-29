@@ -11,7 +11,7 @@ export class EditarComponent implements OnInit {
   lancamento: Lancamento = {};
   id: number = 0;
   tipo: number = 1;
-  valor: string = "";
+  valor: number = 0;
   data: string = "";
 
   constructor(private _lancamentoService: LancamentoService,
@@ -43,62 +43,80 @@ export class EditarComponent implements OnInit {
       },
       () => {
         this.data = this.formatarDataHora(this.lancamento.dataHora);
-        this.valor = this.formatarValorParaReal(this.lancamento.valor);
+        this.valor = this.lancamento.valor;
         this.tipo = this.lancamento.tipo;
       });
   }
 
-  formatarDataHora(data: Date) {
+  formatarDataHora(data: string) {
     if (data)
-      return data.toLocaleString().substr(0, 20).replace("T", " ");
+      return new Date(data).toLocaleString().substr(0, 20).replace("T", " ");
     else
       return "";
   }
 
-  formatarValorParaReal(valor: number) {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-  }
-
-  formatarTipo(idTipo: number) {
-    if (idTipo == 1) {
-      return "Débito";
-    } else {
-      return "Crédito";
+  formatarDataHoraJS(data: string) {
+    data = data
+      .replace("/", "")
+      .replace("/", "")
+      .replace(" ", "")
+      .replace(":", "")
+      .replace(":", "")
+      .replace(".", "");
+    console.log(data);
+    if (!data || data.length != 14) {
+      alert("formato da data é invalido, deve seguir o padrao DD/MM/AAAA HH:MM:SS");
+      return null;
     }
+    let dia: number = parseInt(data.substring(0, 2));
+    let mes: number = parseInt(data.substring(2, 4));
+    let ano: number = parseInt(data.substring(4, 8));
+    let hora: number = parseInt(data.substring(8, 10));
+    let minuto: number = parseInt(data.substring(10, 12));
+    let segundo: number = parseInt(data.substring(12, 14));
+    return `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
   }
 
-  formatarStatus(status: boolean) {
-    if (status) {
-      return "Conciliado";
-    } else {
-      return "Não Conciliado";
+  onSalvar() {
+    let lancto: Lancamento = {
+      dataHora: this.formatarDataHoraJS(this.data),
+      id: null,
+      status: false,
+      valor: this.valor,
+      tipo: parseInt(this.tipo.toString())
     }
-  }
 
-  onRemoveClick(id: number) {
-    if (confirm("Confirma a exclusão do item ID: " + id + " ?")) {
-      this._lancamentoService.delete(id).subscribe(
-        () => { alert("Exclusão realizada com sucesso"); },
-        (error: any) => {
-          if (error.error == null) {
+    if (lancto.dataHora == null) {
+      return;
+    }
+
+    this._lancamentoService.put(this.id, lancto).subscribe(
+      () => {
+        this.router.navigate(['lancamento']).then(() => {
+          alert('Lançamento atualizado!');
+        });
+      },
+      (error: any) => {
+        console.log(error)
+        if (error.error == null) {
+          if (error.message) {
             alert(error.message);
-            return;
           }
-          let mensagem = "";
-          for (var i = 0; i < error.error.length; i++) {
-            if (mensagem != "") {
-              mensagem += "\n"
-            }
-            mensagem += error.error[i];
+          else {
+            alert(error.title);
           }
-          alert(mensagem);
-        },
-        () => { this.onLoad(); });
-    }
-  }
-
-  onEditClick(id: number) {
-    this.router.navigate(['/lancamento', id]);
+          return;
+        }
+        let mensagem = "";
+        for (var i = 0; i < error.error.length; i++) {
+          if (mensagem != "") {
+            mensagem += "\n"
+          }
+          mensagem += error.error[i];
+        }
+        alert(mensagem);
+      },
+      () => { });
   }
 
 }

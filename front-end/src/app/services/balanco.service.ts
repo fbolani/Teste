@@ -18,6 +18,6 @@ export class BalancoService {
     }
 
     conciliar(data: String) {
-        return this._httpClient.post(`${this.url}/a/${data}`, null);
+        return this._httpClient.post(`${this.url}/${data}`, null);
     }
 }

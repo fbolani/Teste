@@ -39,7 +39,7 @@ namespace TesteCompetenciaDDA.Domain.Services
                 BalancoDia balancoDia = await this.BalancoDiaRepository.FirstOrDefaultAsync(w => w.Data.Date == dateTime.Date);
                 balancoDia.ValorCredito = Math.Round(lancamentos.Where(w => w.Tipo == TipoLancamentoFinanceiro.Credito).Sum(x => x.Valor), 2);
                 balancoDia.ValorDebito = Math.Round(lancamentos.Where(w => w.Tipo == TipoLancamentoFinanceiro.Debito).Sum(x => x.Valor), 2);
-                balancoDia.ValorTotal = Math.Round(balancoDia.ValorCredito + (balancoDia.ValorDebito - 1), 2);
+                balancoDia.ValorTotal = Math.Round(balancoDia.ValorCredito + (balancoDia.ValorDebito *- 1), 2);
                 await this.BalancoDiaRepository.Update(balancoDia);
             }
             else
@@ -50,7 +50,7 @@ namespace TesteCompetenciaDDA.Domain.Services
                     ValorCredito = Math.Round(lancamentos.Where(w => w.Tipo == TipoLancamentoFinanceiro.Credito).Sum(x => x.Valor), 2),
                     ValorDebito = Math.Round(lancamentos.Where(w => w.Tipo == TipoLancamentoFinanceiro.Debito).Sum(x => x.Valor), 2),
                 };
-                balancoDia.ValorTotal = Math.Round(balancoDia.ValorCredito + (balancoDia.ValorDebito - 1), 2);
+                balancoDia.ValorTotal = Math.Round(balancoDia.ValorCredito + (balancoDia.ValorDebito *- 1), 2);
                 await this.BalancoDiaRepository.AddAsync(balancoDia);
             }
 

@@ -1,6 +1,6 @@
 export class Lancamento {
     id?: number;
-    dataHora?: Date;
+    dataHora?: string;
     valor?: number;
     tipo?: number;
     status?: boolean;

@@ -26,9 +26,9 @@ export class ConciliarComponent implements OnInit {
     );
   }
 
-  formatarDataHora(data: Date) {
+  formatarDataHora(data: string) {
     if (data)
-      return data.toLocaleString().substr(0, 10);
+      return new Date(data).toLocaleString().substr(0, 10);
     else
       return "";
   }
@@ -55,8 +55,9 @@ export class ConciliarComponent implements OnInit {
 
   onConciliarClick() {
     this._balancoService.conciliar(this.data)
-      .subscribe(() => { },
-        (error: any) => {          
+      .subscribe(() => { alert("Data: " + this.data + " conciliada.") },
+        (error: any) => {
+          console.log(error);
           if (error.error == null) {
             alert(error.message);
             return;
@@ -70,6 +71,6 @@ export class ConciliarComponent implements OnInit {
           }
           alert(mensagem);
         },
-        () => { });
+        () => { this.ngOnInit(); });
   }
 }

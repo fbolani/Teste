@@ -11,8 +11,8 @@ import { RelatorioMensalComponent } from 'src/app/pages/relatorio-mensal/relator
 const routes: Routes = [
   { path: '', redirectTo: 'lancamento', pathMatch: 'full' },
   { path: 'lancamento', component: ListarComponent },
+  { path: 'lancamento/cadastro', component: CadastrarComponent },
   { path: 'lancamento/:id', component: EditarComponent },
-  { path: 'lancamento/cadastrar', component: CadastrarComponent },
   { path: 'conciliar', component: ConciliarComponent },
   { path: 'relatorio-mensal', component: RelatorioMensalComponent },
 ];

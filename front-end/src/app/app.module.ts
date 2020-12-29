@@ -8,6 +8,8 @@ import { CadastrarComponent } from 'src/app/pages/lancamento/cadastrar/cadastrar
 import { EditarComponent } from 'src/app/pages/lancamento/editar/editar.component';
 import { ConciliarComponent } from 'src/app/pages/conciliar/conciliar.component';
 import { RelatorioMensalComponent } from 'src/app/pages/relatorio-mensal/relatorio-mensal.component';
+import {NgxMaskModule} from 'ngx-mask'
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { RelatorioMensalComponent } from 'src/app/pages/relatorio-mensal/relator
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    NgxMaskModule.forRoot(),
+    NgxCurrencyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
